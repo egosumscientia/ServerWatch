@@ -1,21 +1,40 @@
 from src.server import Server
+from src.server_manager import ServerManager
 
 
-server_1 = Server("web-01", "192.168.1.10")
-server_2 = Server("db-01", "192.168.1.20")
+manager = ServerManager()
 
-server_1.update_metrics(20, 30, 40)
-server_2.update_metrics(70, 80, 90)
+print("EMPTY MANAGER")
+print("Count:", manager.count_servers())
+print("Has servers:", manager.has_servers())
 
-print("Before invalid update:")
-print(server_1)
-print(server_2)
+server1 = Server("web-01", "192.168.1.10")
+server2 = Server("db-01", "192.168.1.20")
+server3 = Server("backup-01", "192.168.1.30")
 
+server1.mark_up()
+server3.mark_up()
+
+manager.add_server(server1)
+manager.add_server(server2)
+manager.add_server(server3)
+
+print("\nAFTER ADDING")
+print("Count:", manager.count_servers())
+print("UP:", manager.count_servers_by_status("UP"))
+print("DOWN:", manager.count_servers_by_status("DOWN"))
+print("Has servers:", manager.has_servers())
+
+print("\nINVALID STATUS")
 try:
-    server_1.update_metrics(50, 150, 60)
+    manager.get_servers_by_status("RUNNING")
 except ValueError as error:
-    print("\nError:", error)
+    print(error)
 
-print("\nAfter invalid update on server_1:")
-print(server_1)
-print(server_2)
+print("\nAFTER CLEAR")
+manager.clear_servers()
+print("Count:", manager.count_servers())
+print("UP:", manager.count_servers_by_status("UP"))
+print("DOWN:", manager.count_servers_by_status("DOWN"))
+print("Has servers:", manager.has_servers())
+print("Servers:", manager.get_servers())
