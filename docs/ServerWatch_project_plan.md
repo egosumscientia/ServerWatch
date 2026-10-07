@@ -1,253 +1,248 @@
-# ServerWatch --- Planificación del proyecto
+# ServerWatch --- Project Plan
 
-## Objetivo general
+## General Objective
 
-Desarrollar progresivamente un mini sistema de monitoreo de servidores
-en Python.
+Progressively develop a small server monitoring system in Python.
 
-El proyecto está orientado al aprendizaje práctico: la complejidad se
-incorporará únicamente cuando exista una necesidad real. Inicialmente se
-trabajará con datos simulados y, conforme avance el proyecto, podrán
-incorporarse archivos, JSON, logging, interacción con Linux, procesos,
-networking u otros conceptos si resultan naturales dentro del
-desarrollo.
+The project is oriented toward practical learning: complexity will be
+added only when there is a real need. Initially, the project will work
+with simulated data and, as it progresses, files, JSON, logging, Linux
+interaction, processes, networking, or other concepts may be added if
+they fit naturally into the development.
 
-La planificación por fases funciona como una guía general y podrá
-ajustarse si durante el desarrollo aparecen mejores decisiones de
-diseño.
+The phase plan acts as a general guide and may be adjusted if better
+design decisions appear during development.
 
 ------------------------------------------------------------------------
 
-## Fase 1 --- Modelo básico de servidor
+## Phase 1 --- Basic Server Model
 
-**Objetivo:** crear la primera representación de un servidor.
+**Objective:** create the first representation of a server.
 
-El sistema comenzará manejando información básica como:
+The system will begin by handling basic information such as:
 
 -   hostname;
--   dirección IP;
--   estado UP/DOWN.
+-   IP address;
+-   UP/DOWN state.
 
-Esta fase permitirá trabajar con clases, objetos, atributos y métodos
-básicos sin introducir todavía métricas ni otras responsabilidades.
-
-------------------------------------------------------------------------
-
-## Fase 2 --- Métricas del servidor
-
-**Objetivo:** representar información básica sobre el consumo de
-recursos de un servidor.
-
-Se incorporarán progresivamente métricas como:
-
--   uso de CPU;
--   uso de memoria;
--   uso de disco.
-
-Se trabajará con la actualización y consulta de estas métricas
-utilizando inicialmente datos simulados.
+This phase will make it possible to work with classes, objects,
+attributes, and basic methods without introducing metrics or other
+responsibilities yet.
 
 ------------------------------------------------------------------------
 
-## Fase 3 --- Validación de datos
+## Phase 2 --- Server Metrics
 
-**Objetivo:** impedir que los objetos del sistema puedan quedar en
-estados inválidos.
+**Objective:** represent basic information about a server's resource
+usage.
 
-Se introducirán validaciones sobre los datos que ya existan en el
-proyecto, por ejemplo métricas fuera de rangos razonables o estados no
-permitidos.
+Metrics such as the following will be added progressively:
 
-Las validaciones se incorporarán únicamente cuando exista una necesidad
-concreta derivada de las fases anteriores.
+-   CPU usage;
+-   memory usage;
+-   disk usage.
 
-------------------------------------------------------------------------
-
-## Fase 4 --- Servicios
-
-**Objetivo:** representar los servicios que se ejecutan en un servidor.
-
-El sistema podrá asociar servicios a cada servidor y consultar
-información relevante sobre ellos, incluyendo su estado.
-
-Esta fase permitirá trabajar con colecciones y con relaciones entre
-diferentes elementos del dominio.
+The project will work with updating and querying these metrics using
+simulated data at first.
 
 ------------------------------------------------------------------------
 
-## Fase 5 --- Evaluación de salud
+## Phase 3 --- Data Validation
 
-**Objetivo:** permitir que ServerWatch determine el estado general de
-salud de un servidor.
+**Objective:** prevent system objects from ending up in invalid states.
 
-La evaluación podrá considerar información como:
+Validations will be introduced for data that already exists in the
+project, such as metrics outside reasonable ranges or unsupported
+states.
 
--   disponibilidad del servidor;
--   métricas;
--   estado de sus servicios.
-
-Las reglas concretas se definirán cuando lleguemos a esta fase.
+Validations will be added only when there is a concrete need derived
+from previous phases.
 
 ------------------------------------------------------------------------
 
-## Fase 6 --- Alertas
+## Phase 4 --- Services
 
-**Objetivo:** detectar automáticamente condiciones anormales.
+**Objective:** represent the services that run on a server.
 
-El sistema podrá identificar situaciones como:
+The system will be able to associate services with each server and query
+relevant information about them, including their state.
 
--   uso elevado de CPU;
--   uso elevado de memoria;
--   poco espacio disponible en disco;
--   servicios detenidos;
--   servidor no disponible.
-
-A partir de estas condiciones se introducirán alertas dentro del
-sistema.
+This phase will make it possible to work with collections and
+relationships between different domain elements.
 
 ------------------------------------------------------------------------
 
-## Fase 7 --- Monitoreo de múltiples servidores
+## Phase 5 --- Health Evaluation
 
-**Objetivo:** evolucionar desde el monitoreo de un servidor individual
-hacia la administración de varios servidores.
+**Objective:** allow ServerWatch to determine a server's overall health
+state.
 
-ServerWatch deberá poder mantener una colección de servidores y realizar
-operaciones sobre ellos.
+The evaluation may consider information such as:
 
-En esta fase podrá surgir naturalmente la necesidad de una entidad que
-represente el propio sistema de monitoreo.
+-   server availability;
+-   metrics;
+-   the state of its services.
 
-------------------------------------------------------------------------
-
-## Fase 8 --- Historial de mediciones
-
-**Objetivo:** conservar información de mediciones anteriores.
-
-Hasta este punto las métricas podrán representar principalmente el
-estado actual. En esta fase se estudiará cómo registrar mediciones a lo
-largo del tiempo.
-
-Esto permitirá comenzar a observar cambios y comportamiento histórico.
+The concrete rules will be defined when we reach this phase.
 
 ------------------------------------------------------------------------
 
-## Fase 9 --- Persistencia
+## Phase 6 --- Alerts
 
-**Objetivo:** conservar información entre diferentes ejecuciones del
-programa.
+**Objective:** automatically detect abnormal conditions.
 
-Se evaluará el uso de:
+The system will be able to identify situations such as:
 
--   archivos;
+-   high CPU usage;
+-   high memory usage;
+-   low available disk space;
+-   stopped services;
+-   unavailable server.
+
+Alerts will be introduced into the system based on these conditions.
+
+------------------------------------------------------------------------
+
+## Phase 7 --- Monitoring Multiple Servers
+
+**Objective:** evolve from monitoring a single server to managing several
+servers.
+
+ServerWatch must be able to maintain a collection of servers and perform
+operations on them.
+
+In this phase, the need for an entity representing the monitoring system
+itself may arise naturally.
+
+------------------------------------------------------------------------
+
+## Phase 8 --- Measurement History
+
+**Objective:** preserve information from previous measurements.
+
+Up to this point, metrics may mainly represent the current state. In
+this phase, the project will study how to record measurements over time.
+
+This will make it possible to begin observing changes and historical
+behavior.
+
+------------------------------------------------------------------------
+
+## Phase 9 --- Persistence
+
+**Objective:** preserve information between different executions of the
+program.
+
+The use of the following will be evaluated:
+
+-   files;
 -   JSON;
--   lectura y escritura de datos.
+-   reading and writing data.
 
-La estructura concreta se decidirá según el estado real del proyecto al
-llegar a esta fase.
-
-------------------------------------------------------------------------
-
-## Fase 10 --- Interfaz de consola
-
-**Objetivo:** permitir operar ServerWatch desde una terminal.
-
-La interfaz podrá ofrecer operaciones como:
-
--   consultar servidores;
--   consultar métricas;
--   consultar servicios;
--   visualizar estados;
--   consultar alertas.
-
-No se definirá anticipadamente una interfaz compleja; se construirá a
-partir de las funcionalidades que ya existan.
+The concrete structure will be decided according to the real state of
+the project when this phase is reached.
 
 ------------------------------------------------------------------------
 
-## Fase 11 --- Logging y manejo de errores
+## Phase 10 --- Console Interface
 
-**Objetivo:** mejorar la observabilidad y robustez de la aplicación.
+**Objective:** allow ServerWatch to be operated from a terminal.
 
-Se podrá incorporar:
+The interface may offer operations such as:
+
+-   query servers;
+-   query metrics;
+-   query services;
+-   view states;
+-   query alerts.
+
+A complex interface will not be defined ahead of time; it will be built
+from the functionality that already exists.
+
+------------------------------------------------------------------------
+
+## Phase 11 --- Logging and Error Handling
+
+**Objective:** improve the application's observability and robustness.
+
+The project may add:
 
 -   logging;
--   manejo de excepciones;
--   tratamiento de errores de archivos;
--   tratamiento de datos inválidos;
--   registro de eventos relevantes.
+-   exception handling;
+-   file error handling;
+-   invalid data handling;
+-   recording relevant events.
 
-Esta fase deberá aprovechar situaciones reales que hayan aparecido
-durante el desarrollo anterior.
+This phase should take advantage of real situations that appeared during
+previous development.
 
 ------------------------------------------------------------------------
 
-## Fase 12 --- Monitoreo real
+## Phase 12 --- Real Monitoring
 
-**Objetivo:** comenzar a reemplazar algunos datos simulados por
-información obtenida del sistema real.
+**Objective:** begin replacing some simulated data with information
+obtained from the real system.
 
-Dependiendo de cómo haya evolucionado ServerWatch, podrán explorarse
-conceptos como:
+Depending on how ServerWatch has evolved, concepts such as the following
+may be explored:
 
--   información real de CPU;
--   memoria;
--   disco;
--   procesos;
--   servicios de Linux;
--   conectividad;
+-   real CPU information;
+-   memory;
+-   disk;
+-   processes;
+-   Linux services;
+-   connectivity;
 -   networking.
 
-El alcance exacto se decidirá únicamente al llegar a esta fase.
+The exact scope will be decided only when this phase is reached.
 
 ------------------------------------------------------------------------
 
-## Posibles extensiones
+## Possible Extensions
 
-Las siguientes funcionalidades **no forman parte obligatoria del
-proyecto**:
+The following features are **not a mandatory part of the project**:
 
--   testing automatizado;
--   base de datos;
+-   automated testing;
+-   database;
 -   API;
--   interfaz gráfica;
--   monitoreo remoto;
--   concurrencia;
--   otras integraciones.
+-   graphical interface;
+-   remote monitoring;
+-   concurrency;
+-   other integrations.
 
-Solo se incorporarán si existe una razón concreta para hacerlo y aportan
-valor al aprendizaje o al funcionamiento de ServerWatch.
-
-------------------------------------------------------------------------
-
-## Metodología de desarrollo
-
-El proyecto se desarrollará bajo las siguientes reglas:
-
-1.  Se trabajará una sola fase a la vez.
-2.  Dentro de cada fase se trabajará un solo paso a la vez.
-3.  El estudiante escribirá todo el código de implementación.
-4.  No se proporcionará código de solución inicialmente.
-5.  Cada paso indicará qué debe conseguirse, el comportamiento esperado,
-    las restricciones y los casos importantes.
-6.  Después de cada paso se revisará la implementación antes de
-    continuar.
-7.  No se avanzará mientras el paso actual tenga errores pendientes.
-8.  Ante dificultades se proporcionarán pistas progresivas antes de
-    mostrar una solución.
-9.  Las decisiones importantes de diseño con varias alternativas
-    razonables se discutirán antes de elegir una.
-10. No se incorporarán funcionalidades correspondientes a fases futuras.
-11. Se preservará el comportamiento correcto conseguido en las fases
-    anteriores.
-12. La estructura del proyecto se reorganizará únicamente cuando la
-    complejidad real lo justifique.
-13. La planificación podrá ajustarse durante el desarrollo si aparece
-    una razón técnica o pedagógica clara.
+They will be added only if there is a concrete reason to do so and they
+add value to ServerWatch's learning goals or functionality.
 
 ------------------------------------------------------------------------
 
-## Principio del proyecto
+## Development Methodology
 
-**La complejidad debe aparecer como consecuencia de una necesidad real,
-no porque se haya diseñado anticipadamente.**
+The project will be developed under the following rules:
+
+1.  Only one phase will be worked on at a time.
+2.  Within each phase, only one step will be worked on at a time.
+3.  The student will write all implementation code.
+4.  Solution code will not be provided initially.
+5.  Each step will indicate what must be achieved, the expected
+    behavior, the restrictions, and the important cases.
+6.  After each step, the implementation will be reviewed before
+    continuing.
+7.  The project will not move forward while the current step has pending
+    errors.
+8.  When difficulties arise, progressive hints will be provided before
+    showing a solution.
+9.  Important design decisions with several reasonable alternatives will
+    be discussed before choosing one.
+10. Functionality from future phases will not be added.
+11. The correct behavior achieved in previous phases will be preserved.
+12. The project structure will be reorganized only when the real
+    complexity justifies it.
+13. The plan may be adjusted during development if a clear technical or
+    pedagogical reason appears.
+
+------------------------------------------------------------------------
+
+## Project Principle
+
+**Complexity should appear as the consequence of a real need, not because
+it was designed ahead of time.**

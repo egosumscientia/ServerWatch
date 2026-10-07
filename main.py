@@ -1,15 +1,21 @@
 from src.server import Server
 
 
-server = Server("web-01", "192.168.1.10")
+server_1 = Server("web-01", "192.168.1.10")
+server_2 = Server("db-01", "192.168.1.20")
 
-server.simulate_metrics()
-print(server)
+server_1.update_metrics(20, 30, 40)
+server_2.update_metrics(70, 80, 90)
 
-server.mark_up()
-print(server)
+print("Before invalid update:")
+print(server_1)
+print(server_2)
 
-server.mark_down()
-print(server)
+try:
+    server_1.update_metrics(50, 150, 60)
+except ValueError as error:
+    print("\nError:", error)
 
-print(server.get_info())
+print("\nAfter invalid update on server_1:")
+print(server_1)
+print(server_2)

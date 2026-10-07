@@ -35,12 +35,27 @@ class Server:
         return self.status == "UP"
 
     def update_metrics(self, cpu_usage, memory_usage, disk_usage):
-        self.cpu_usage = cpu_usage
-        self.memory_usage = memory_usage
-        self.disk_usage = disk_usage
+        if self.are_metrics_numeric(cpu_usage, memory_usage, disk_usage):
+            if self.are_metrics_in_range(cpu_usage, memory_usage, disk_usage):
+                self.cpu_usage = cpu_usage
+                self.memory_usage = memory_usage
+                self.disk_usage = disk_usage
+            else:
+                raise ValueError("Metrics must be between 0 and 100")
+        else:
+            raise ValueError("Metrics must be int or float")
 
     def simulate_metrics(self):
         self.update_metrics(random.randint(0, 100), random.randint(0, 100), random.randint(0,100))
+
+    @staticmethod
+    def are_metrics_in_range(cpu_usage, memory_usage, disk_usage):
+        return (100 >= cpu_usage >= 0) and (100 >= memory_usage >= 0) and (100 >= disk_usage >= 0)
+
+    @staticmethod
+    def are_metrics_numeric(cpu_usage, memory_usage, disk_usage):
+        return (isinstance(cpu_usage, (int, float)) and isinstance(memory_usage, (int, float)) and isinstance(disk_usage, (int, float))
+                and not isinstance(cpu_usage,bool) and not isinstance(memory_usage, bool) and not isinstance(disk_usage, bool))
 
     def __str__(self):
         return f"{self.hostname} ({self.ip_address}) - {self.status} | CPU: {self.cpu_usage}% | Memory: {self.memory_usage}% | Disk: {self.disk_usage}%"

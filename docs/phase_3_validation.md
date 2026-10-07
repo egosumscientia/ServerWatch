@@ -1,123 +1,131 @@
-# Fase 3 — Validación de métricas
+# Phase 3 - Metric Validation
 
-## Objetivo
+## Objective
 
-Incorporar validación básica a las métricas de `Server` para impedir que el objeto acepte valores inválidos de CPU, memoria y disco.
+Add basic validation to `Server` metrics so the object cannot accept
+invalid CPU, memory, or disk values.
 
-Esta fase parte del sistema de métricas construido en la Fase 2 y debe preservar todo el comportamiento conseguido anteriormente.
+This phase starts from the metrics system built in Phase 2 and must
+preserve all behavior achieved previously.
 
 ---
 
-## Estado inicial
+## Initial State
 
-Cada instancia de `Server` dispone actualmente de las métricas:
+Each `Server` instance currently has the following metrics:
 
 - `cpu_usage`
 - `memory_usage`
 - `disk_usage`
 
-Las tres comienzan en `0`.
+All three start at `0`.
 
-El método:
+The method:
 
 `update_metrics(cpu_usage, memory_usage, disk_usage)`
 
-actualiza las tres métricas.
+updates all three metrics.
 
-El método:
+The method:
 
 `simulate_metrics()`
 
-genera valores enteros aleatorios entre `0` y `100` y utiliza `update_metrics()` para almacenarlos.
+generates random integer values between `0` and `100` and uses
+`update_metrics()` to store them.
 
-Las métricas representan porcentajes.
+The metrics represent percentages.
 
 ---
 
-## Objetivo funcional
+## Functional Objective
 
-Las métricas deben mantenerse dentro del rango válido:
+Metrics must remain within the valid range:
 
-`0 <= valor <= 100`
+`0 <= value <= 100`
 
-Esto aplica a:
+This applies to:
 
 - CPU
-- memoria
-- disco
+- memory
+- disk
 
-Durante esta fase se incorporarán progresivamente las reglas necesarias para evitar que `Server` quede con métricas inválidas.
-
----
-
-## Alcance
-
-La fase debe cubrir progresivamente:
-
-1. Validación del rango permitido para las métricas.
-2. Definición del comportamiento cuando una métrica está fuera del rango.
-3. Validación del tipo de dato cuando corresponda.
-4. Protección frente a actualizaciones parciales: si una actualización conjunta contiene algún valor inválido, el objeto no debe quedar parcialmente actualizado.
-5. Comprobación de valores límite.
-6. Comprobación de entradas inválidas.
-7. Verificación de que `simulate_metrics()` continúa funcionando con las nuevas reglas.
-8. Preservación del comportamiento conseguido en las Fases 1 y 2.
+During this phase, the necessary rules will be added progressively to
+prevent `Server` from ending up with invalid metrics.
 
 ---
 
-## Valores límite
+## Scope
 
-Los valores:
+This phase must progressively cover:
+
+1. Validation of the allowed metric range.
+2. Definition of the behavior when a metric is outside the range.
+3. Data type validation when appropriate.
+4. Protection against partial updates: if a joint update contains any
+   invalid value, the object must not be left partially updated.
+5. Boundary value checks.
+6. Invalid input checks.
+7. Verification that `simulate_metrics()` continues to work with the new
+   rules.
+8. Preservation of the behavior achieved in Phases 1 and 2.
+
+---
+
+## Boundary Values
+
+The values:
 
 - `0`
 - `100`
 
-deben considerarse válidos.
+must be considered valid.
 
-Los valores inferiores a `0` o superiores a `100` deben considerarse inválidos.
+Values below `0` or above `100` must be considered invalid.
 
-La política exacta para reaccionar ante valores inválidos se decidirá durante el desarrollo antes de implementarla.
+The exact policy for reacting to invalid values will be decided during
+development before it is implemented.
 
 ---
 
-## Restricciones de diseño
+## Design Restrictions
 
-La validación introducida en esta fase estará limitada a las métricas.
+The validation introduced in this phase will be limited to metrics.
 
-No implementar todavía:
+Do not implement yet:
 
-- validación de `hostname`;
-- validación de `ip_address`;
-- validación real de direcciones IP;
-- estados de salud del servidor;
+- `hostname` validation;
+- `ip_address` validation;
+- real IP address validation;
+- server health states;
 - `HEALTHY`;
 - `WARNING`;
 - `CRITICAL`;
-- thresholds configurables;
-- alertas;
-- historial de métricas;
+- configurable thresholds;
+- alerts;
+- metrics history;
 - timestamps;
-- persistencia;
+- persistence;
 - JSON;
-- archivos de configuración;
+- configuration files;
 - logging;
-- métricas reales de Linux;
-- nuevas clases sin una necesidad clara.
+- real Linux metrics;
+- new classes without a clear need.
 
-No utilizar librerías externas para resolver la validación.
+Do not use external libraries to solve validation.
 
-La implementación debe mantenerse sencilla y acorde con el alcance actual de ServerWatch.
+The implementation must remain simple and aligned with the current
+ServerWatch scope.
 
 ---
 
-## Compatibilidad con fases anteriores
+## Compatibility With Previous Phases
 
-La Fase 3 no debe romper el comportamiento existente.
+Phase 3 must not break existing behavior.
 
-Debe continuar funcionando:
+The following must continue to work:
 
-- creación independiente de servidores;
-- estado inicial `DOWN`;
+- independent creation of servers;
+- initial `DOWN` state;
 - `mark_up()`;
 - `mark_down()`;
 - `toggle_status()`;
@@ -127,68 +135,76 @@ Debe continuar funcionando:
 - `update_metrics()`;
 - `simulate_metrics()`.
 
-Cada instancia debe continuar manteniendo independientemente su estado y sus métricas.
+Each instance must continue to keep its own state and metrics
+independently.
 
 ---
 
-## Simulación
+## Simulation
 
-`simulate_metrics()` debe continuar generando métricas válidas.
+`simulate_metrics()` must continue to generate valid metrics.
 
-La simulación debe respetar las mismas reglas de validación utilizadas por las actualizaciones normales y debe continuar reutilizando `update_metrics()`.
-
----
-
-## Integridad de una actualización
-
-Una llamada a `update_metrics()` representa una actualización conjunta de CPU, memoria y disco.
-
-Al finalizar esta fase, una actualización inválida no debe dejar al objeto en un estado parcialmente actualizado.
-
-Si alguno de los valores proporcionados invalida la actualización completa, las métricas anteriores deben conservarse.
-
-La estrategia concreta para conseguir este comportamiento se decidirá durante la implementación.
+The simulation must respect the same validation rules used by normal
+updates and must continue reusing `update_metrics()`.
 
 ---
 
-## Fuera del alcance
+## Update Integrity
 
-Esta fase NO determina todavía si un servidor está funcionando bien o mal según sus métricas.
+A call to `update_metrics()` represents a joint update of CPU, memory,
+and disk.
 
-Por ejemplo, un uso de CPU de `95%` puede ser una métrica válida aunque posteriormente otra fase pueda considerarlo un estado problemático.
+By the end of this phase, an invalid update must not leave the object in
+a partially updated state.
 
-La Fase 3 responde únicamente a la pregunta:
+If any of the provided values invalidates the complete update, the
+previous metrics must be preserved.
 
-**¿El dato recibido es válido como métrica?**
-
-No responde todavía:
-
-**¿La métrica indica que el servidor está saludable?**
-
----
-
-## Criterios de finalización
-
-La Fase 3 estará completa cuando:
-
-- CPU, memoria y disco acepten únicamente los valores definidos como válidos;
-- los límites `0` y `100` funcionen correctamente;
-- los valores fuera del rango sean rechazados según la política elegida;
-- los tipos de datos aceptados estén claramente definidos y comprobados;
-- una actualización inválida no modifique parcialmente las métricas;
-- `simulate_metrics()` siga funcionando;
-- `get_info()` y `__str__()` continúen funcionando;
-- el estado `UP`/`DOWN` siga siendo independiente de las métricas;
-- las funcionalidades de las Fases 1 y 2 permanezcan intactas.
+The concrete strategy for achieving this behavior will be decided during
+implementation.
 
 ---
 
-## Metodología de implementación
+## Out of Scope
 
-La fase se desarrollará incrementalmente.
+This phase does NOT yet determine whether a server is doing well or
+poorly according to its metrics.
 
-Se implementará un solo paso a la vez.
+For example, CPU usage of `95%` can be a valid metric, even if a later
+phase may consider it a problematic state.
 
-Cada paso será revisado antes de continuar con el siguiente.
+Phase 3 answers only the question:
 
-No se introducirán anticipadamente funcionalidades correspondientes a fases posteriores.
+**Is the received data valid as a metric?**
+
+It does not yet answer:
+
+**Does the metric indicate that the server is healthy?**
+
+---
+
+## Completion Criteria
+
+Phase 3 will be complete when:
+
+- CPU, memory, and disk accept only the values defined as valid;
+- the limits `0` and `100` work correctly;
+- values outside the range are rejected according to the chosen policy;
+- the accepted data types are clearly defined and checked;
+- an invalid update does not partially modify the metrics;
+- `simulate_metrics()` keeps working;
+- `get_info()` and `__str__()` keep working;
+- the `UP`/`DOWN` state remains independent from the metrics;
+- the functionality from Phases 1 and 2 remains intact.
+
+---
+
+## Implementation Methodology
+
+The phase will be developed incrementally.
+
+Only one step will be implemented at a time.
+
+Each step will be reviewed before continuing to the next one.
+
+Functionality from later phases will not be introduced ahead of time.

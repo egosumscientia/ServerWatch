@@ -1,14 +1,14 @@
-# ServerWatch --- Fase 2: Métricas del servidor
+# ServerWatch --- Phase 2: Server Metrics
 
-## Estado previo
+## Previous State
 
-La **Fase 1 --- Modelo básico de servidor** está completada.
+**Phase 1 --- Basic Server Model** is complete.
 
-Actualmente existe la clase `Server`, definida en `server.py`, con:
+The `Server` class currently exists, defined in `server.py`, with:
 
 -   `hostname`
 -   `ip_address`
--   `status`, inicializado en `"DOWN"`
+-   `status`, initialized to `"DOWN"`
 -   `mark_up()`
 -   `mark_down()`
 -   `toggle_status()`
@@ -16,109 +16,105 @@ Actualmente existe la clase `Server`, definida en `server.py`, con:
 -   `get_info()`
 -   `__str__()`
 
-La Fase 1 estableció la representación básica y el manejo del estado de
-un servidor.
+Phase 1 established the basic representation and state management of a
+server.
 
 ------------------------------------------------------------------------
 
-## Objetivo de la Fase 2
+## Phase 2 Objective
 
-Incorporar métricas básicas de utilización de recursos a cada servidor.
+Add basic resource utilization metrics to each server.
 
-Las métricas iniciales serán:
+The initial metrics will be:
 
 -   `cpu_usage`
 -   `memory_usage`
 -   `disk_usage`
 
-Estas métricas representarán porcentajes de utilización.
+These metrics will represent utilization percentages.
 
-Durante esta fase los datos seguirán siendo **simulados**. Todavía no se
-obtendrá información real del sistema operativo.
-
-------------------------------------------------------------------------
-
-## Alcance
-
-La fase deberá permitir progresivamente:
-
--   representar las métricas de cada servidor;
--   mantener sus valores como parte del estado de cada instancia;
--   actualizar las métricas;
--   consultar las métricas;
--   integrar las métricas de manera coherente con el modelo `Server`
-    existente.
-
-La implementación concreta se decidirá paso a paso durante el
-desarrollo.
+During this phase, the data will still be **simulated**. Real operating
+system information will not be obtained yet.
 
 ------------------------------------------------------------------------
 
-## Fuera de alcance
+## Scope
 
-En esta fase no se introducirán anticipadamente:
+This phase should progressively make it possible to:
 
--   validaciones de rangos o tipos, salvo que se decida explícitamente
-    cambiar el plan;
--   servicios;
--   evaluación automática de salud;
--   alertas;
--   historial de mediciones;
--   archivos o JSON;
--   persistencia;
+-   represent each server's metrics;
+-   keep their values as part of each instance's state;
+-   update the metrics;
+-   query the metrics;
+-   integrate the metrics coherently with the existing `Server` model.
+
+The concrete implementation will be decided step by step during
+development.
+
+------------------------------------------------------------------------
+
+## Out of Scope
+
+This phase will not introduce the following ahead of time:
+
+-   range or type validations, unless the plan is explicitly changed;
+-   services;
+-   automatic health evaluation;
+-   alerts;
+-   measurement history;
+-   files or JSON;
+-   persistence;
 -   logging;
--   obtención real de métricas desde Linux;
+-   real metric collection from Linux;
 -   networking;
--   base de datos;
--   interfaz gráfica.
+-   database;
+-   graphical interface.
 
-La **validación de datos corresponde inicialmente a la Fase 3**.
-
-------------------------------------------------------------------------
-
-## Reglas de desarrollo
-
-1.  Trabajar un solo paso a la vez.
-2.  El usuario escribe todo el código de implementación.
-3.  No proporcionar código de solución inicialmente.
-4.  Cada paso debe indicar qué conseguir, el comportamiento esperado,
-    las restricciones y los casos importantes.
-5.  Revisar la implementación del usuario antes de avanzar.
-6.  No avanzar mientras el paso actual tenga errores pendientes.
-7.  Si el usuario se atasca, proporcionar pistas progresivas antes de
-    mostrar una solución.
-8.  No introducir funcionalidades de fases posteriores.
-9.  Preservar todo el comportamiento correcto conseguido en la Fase 1.
-10. Evitar sobrearquitectura.
-11. Cuando exista una decisión de diseño importante con varias
-    alternativas razonables, explicar brevemente las opciones y
-    preguntar antes de decidir.
-12. El asistente diseña y realiza las pruebas; el usuario se concentra
-    en implementar la lógica.
-13. Al introducir nuevos elementos, indicar explícitamente cómo nombrar
-    archivos, clases, métodos, atributos, funciones u otros componentes,
-    salvo que decidir el nombre sea parte deliberada del ejercicio.
+**Data validation initially belongs to Phase 3**.
 
 ------------------------------------------------------------------------
 
-## Punto de inicio
+## Development Rules
 
-El primer trabajo de la Fase 2 será incorporar a cada instancia de
-`Server` los atributos:
+1.  Work one step at a time.
+2.  The user writes all implementation code.
+3.  Do not provide solution code initially.
+4.  Each step must indicate what to achieve, the expected behavior,
+    the restrictions, and the important cases.
+5.  Review the user's implementation before moving forward.
+6.  Do not move forward while the current step has pending errors.
+7.  If the user gets stuck, provide progressive hints before showing a
+    solution.
+8.  Do not introduce functionality from later phases.
+9.  Preserve all correct behavior achieved in Phase 1.
+10. Avoid overengineering.
+11. When an important design decision has several reasonable
+    alternatives, briefly explain the options and ask before deciding.
+12. The assistant designs and performs the tests; the user focuses on
+    implementing the logic.
+13. When introducing new elements, explicitly indicate how to name
+    files, classes, methods, attributes, functions, or other components,
+    unless choosing the name is deliberately part of the exercise.
+
+------------------------------------------------------------------------
+
+## Starting Point
+
+The first task in Phase 2 will be to add the following attributes to
+each `Server` instance:
 
 -   `cpu_usage`
 -   `memory_usage`
 -   `disk_usage`
 
-Inicialmente las tres métricas comenzarán en `0`.
+Initially, all three metrics will start at `0`.
 
-En ese primer paso no se agregarán todavía validaciones, métodos de
-actualización ni cambios en `get_info()`.
+In this first step, no validations, update methods, or changes to
+`get_info()` will be added yet.
 
 ------------------------------------------------------------------------
 
-## Principio de la fase
+## Principle of the Phase
 
-Las métricas se incorporarán de la forma más simple posible y la
-complejidad adicional aparecerá únicamente cuando una necesidad concreta
-del proyecto la justifique.
+Metrics will be added in the simplest possible way, and additional
+complexity will appear only when a concrete project need justifies it.
